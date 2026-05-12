@@ -31,6 +31,20 @@
 - ダークモード
 - 学習データ分析機能
 
+## システム画面
+
+### Home
+<img width="1470" height="956" alt="スクリーンショット 2026-05-12 13 47 34" src="https://github.com/user-attachments/assets/673f53d3-b5f2-4d19-b803-da3b79420313" />
+
+### Login
+<img width="1470" height="956" alt="スクリーンショット 2026-05-12 13 47 52" src="https://github.com/user-attachments/assets/0124024d-476c-45d4-9979-c49a336b88ea" />
+
+### Dashboard
+<img width="1470" height="956" alt="スクリーンショット 2026-05-12 13 47 02" src="https://github.com/user-attachments/assets/beb8a807-387d-48d9-93bb-0f56f83c5048" />
+
+### Goals
+<img width="1470" height="956" alt="スクリーンショット 2026-05-12 13 49 07" src="https://github.com/user-attachments/assets/cc127b6f-0168-46e8-b9ab-656453973836" />
+
 ## 実行方法
 
 ```bash
