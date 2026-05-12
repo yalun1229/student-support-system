@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>学習記録編集</h1>
+
+    <form method="POST">
+
+        <label>科目名：</label>
+        <input type="text" name="subject" value="{{ record[1] }}" required>
+
+        <br><br>
+
+        <label>勉強時間：</label>
+        <input type="number" name="hours" value="{{ record[2] }}" required>
+
+        <br><br>
+
+        <button type="submit">更新</button>
+
+    </form>
+
+</body>
+</html>

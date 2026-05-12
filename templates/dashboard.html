@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="navbar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/goals">Goals</a>
+    <a href="/logout">Logout</a>
+    </div>
+
+    <h1>留学生支援システム</h1>
+    <div class="stats">
+
+    <div class="card">
+        <h3>総学習時間</h3>
+        <p>{{ total_hours }} 時間</p>
+    </div>
+
+    <div class="card">
+        <h3>登録科目数</h3>
+        <p>{{ subject_count }}</p>
+    </div>
+
+</div>
+
+    <h2>学習記録追加</h2>
+
+    <form method="POST">
+        <label>科目名：</label>
+        <input type="text" name="subject" placeholder="Python" required>
+
+        <br><br>
+
+        <label>勉強時間：</label>
+        <input type="number" name="hours" placeholder="2" required>
+
+        <br><br>
+
+        <button type="submit">追加</button>
+    </form>
+
+    <hr>
+
+    <h2>学習記録一覧</h2>
+
+    <ul>
+        {% for record in records %}
+            <li>
+                {{ record[1] }} - {{ record[2] }}時間
+                <a href="/edit/{{ record[0] }}">編集</a>
+                <a href="/delete/{{ record[0] }}">削除</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>学習時間グラフ</h2>
+
+    <canvas id="studyChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    const ctx = document.getElementById('studyChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                {% for record in records %}
+                    "{{ record[1] }}",
+                {% endfor %}
+            ],
+            datasets: [{
+                label: '勉強時間',
+                data: [
+                    {% for record in records %}
+                        {{ record[2] }},
+                    {% endfor %}
+                ]
+            }]
+        }
+    });
+    </script>
+
+</body>
+</html>

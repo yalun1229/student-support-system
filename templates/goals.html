@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Goals</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/goals">Goals</a>
+    <a href="/logout">Logout</a>
+</div>
+
+    <h1>学習目標管理</h1>
+
+    <form method="POST">
+
+        <label>科目名：</label>
+        <input type="text" name="subject" required>
+
+        <br><br>
+
+        <label>目標時間：</label>
+        <input type="number" name="target_hours" required>
+
+        <br><br>
+
+        <button type="submit">追加</button>
+
+    </form>
+
+    <hr>
+
+    <h2>目標一覧</h2>
+
+    <ul>
+    {% for goal in goals %}
+        <li>
+            <h3>{{ goal.subject }}</h3>
+
+            <p>{{ goal.total_hours }} / {{ goal.target_hours }} 時間</p>
+
+            <div style="width:300px; background:#ddd; border-radius:10px;">
+                <div style="
+                    width:{{ goal.progress }}%;
+                    background:#3498db;
+                    color:white;
+                    padding:5px;
+                    border-radius:10px;
+                ">
+                    {{ goal.progress }}%
+                </div>
+            </div>
+        </li>
+        <br>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
