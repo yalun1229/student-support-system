@@ -115,3 +115,22 @@ http://127.0.0.1:5000
 本システムは、「画像情報と生成AIを活用した留学生向け専門学習支援システム」の研究における原型システムです。
 
 単なる学習記録アプリではなく、将来的には授業資料やノート画像をもとに、専門用語の説明、学習内容の整理、質問文作成支援を行うシステムとして発展させることを目的としています。
+## 📷 System Preview
+
+### Login
+
+![Login](images/login.png)
+
+---
+
+### Dashboard
+
+![Dashboard](images/dashboard.png)
+
+---
+
+### Goal Management
+
+![Goals](images/goals.png)
+
+---
