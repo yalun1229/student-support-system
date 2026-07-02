@@ -2,32 +2,35 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>ログイン｜留学生向け専門学習支援システム</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <h1>留学生支援システム</h1>
+    <h1>
+        留学生向け<br>
+        専門学習支援システム
+    </h1>
 
-    <form method="POST">
+    <p class="subtitle">
+        個人の学習記録・目標・学習状況を管理するためにログインしてください。
+    </p>
 
-        <label>ユーザー名：</label>
+    <form method="POST" class="login-form">
+
+        <label>ユーザー名</label>
         <input type="text" name="username" required>
 
-        <br><br>
-
-        <label>パスワード：</label>
+        <label>パスワード</label>
         <input type="password" name="password" required>
-
-        <br><br>
 
         <button type="submit">ログイン</button>
 
     </form>
 
     {% if error %}
-        <p style="color:red;">{{ error }}</p>
+        <p class="error-message">{{ error }}</p>
     {% endif %}
 
 </body>
