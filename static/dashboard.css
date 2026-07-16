@@ -1,0 +1,156 @@
+.dashboard-page {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.dashboard-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+.dashboard-hero {
+    padding: 40px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #ffffff 0%, #eef4ff 100%);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    margin-bottom: 28px;
+}
+
+.dashboard-hero h1 {
+    margin: 12px 0;
+    font-size: 40px;
+}
+
+.dashboard-hero p {
+    color: #64748b;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.dashboard-card p {
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.dashboard-card h2 {
+    font-size: 34px;
+    color: #2563eb;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.study-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.study-form label {
+    color: #334155;
+    font-weight: 700;
+}
+
+.study-form input {
+    width: 100%;
+    padding: 15px 16px;
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    font-size: 15px;
+    outline: none;
+}
+
+.study-form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.study-form button {
+    margin-top: 12px;
+    padding: 15px;
+    border: none;
+    border-radius: 14px;
+    background: #2563eb;
+    color: white;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.study-form button:hover {
+    background: #1d4ed8;
+}
+
+.record-list {
+    display: block;
+    padding-left: 0;
+    list-style: none;
+}
+
+.record-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+    padding: 16px 18px;
+    background: #f8fafc;
+    border-radius: 16px;
+}
+
+.record-actions a {
+    margin-left: 12px;
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.future-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.future-list span {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.chart-container {
+    height: 280px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (max-width: 900px) {
+    .dashboard-stats,
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 30px;
+    }
+}

@@ -1,0 +1,705 @@
+{% extends "base.html" %}
+
+{% block title %}
+対話型学習支援｜専門学習支援システム
+{% endblock %}
+
+{% block body_class %}
+ai-page
+{% endblock %}
+
+{% block content %}
+
+<main class="ai-container">
+
+    <section class="ai-hero">
+        <p class="hero-badge">INTERACTIVE LEARNING SUPPORT</p>
+
+        <h1>対話型専門学習支援</h1>
+
+        <p>
+            学習者の日本語レベルと専門知識に応じて、
+            専門用語や授業内容を分かりやすく説明します。
+        </p>
+
+        <div class="prototype-notice">
+            <strong>研究試作版</strong>
+            <span>
+                現在は事前に登録したIT専門用語に対応しています。
+                今後、生成AI APIを接続する予定です。
+            </span>
+        </div>
+    </section>
+
+
+    <section class="workflow-section">
+        <div class="workflow-step">
+            <span>👤</span>
+            <h3>Learner</h3>
+            <p>学習者情報を設定</p>
+        </div>
+
+        <div class="workflow-arrow">→</div>
+
+        <div class="workflow-step">
+            <span>💬</span>
+            <h3>Question</h3>
+            <p>専門内容を質問</p>
+        </div>
+
+        <div class="workflow-arrow">→</div>
+
+        <div class="workflow-step">
+            <span>🧠</span>
+            <h3>Adaptation</h3>
+            <p>説明方法を決定</p>
+        </div>
+
+        <div class="workflow-arrow">→</div>
+
+        <div class="workflow-step">
+            <span>👍</span>
+            <h3>Feedback</h3>
+            <p>理解度を記録</p>
+        </div>
+    </section>
+
+
+    {% if error %}
+    <div class="ai-alert error-alert">{{ error }}</div>
+    {% endif %}
+
+    {% if message %}
+    <div class="ai-alert success-alert">{{ message }}</div>
+    {% endif %}
+
+
+    <section class="ai-main-grid">
+
+        <div class="ai-panel question-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <p class="panel-label">STEP 01</p>
+                    <h2>👤 学習者設定と質問</h2>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                日本語レベルとIT知識を設定し、
+                分からない専門内容を入力してください。
+            </p>
+
+            <form method="POST" class="question-form">
+
+                <input type="hidden" name="action" value="ask">
+
+                <section class="learner-profile-box">
+
+                    <div class="profile-heading">
+                        <div>
+                            <span class="profile-icon">👤</span>
+
+                            <div>
+                                <strong>学習者モデル</strong>
+                                <small>説明方法の調整に利用します</small>
+                            </div>
+                        </div>
+
+                        <span class="profile-status">保存されます</span>
+                    </div>
+
+
+                    <div class="profile-grid">
+
+                        <div class="profile-field">
+                            <label for="japanese_level">
+                                日本語レベル
+                            </label>
+
+                            <select
+                                id="japanese_level"
+                                name="japanese_level"
+                            >
+                                <option
+                                    value="N3"
+                                    {% if japanese_level == "N3" %}selected{% endif %}
+                                >
+                                    N3程度
+                                </option>
+
+                                <option
+                                    value="N2"
+                                    {% if japanese_level == "N2" %}selected{% endif %}
+                                >
+                                    N2程度
+                                </option>
+
+                                <option
+                                    value="N1"
+                                    {% if japanese_level == "N1" %}selected{% endif %}
+                                >
+                                    N1程度
+                                </option>
+                            </select>
+
+                            <small>
+                                説明で使用する日本語の難しさ
+                            </small>
+                        </div>
+
+
+                        <div class="profile-field">
+                            <label for="knowledge_level">
+                                IT知識レベル
+                            </label>
+
+                            <select
+                                id="knowledge_level"
+                                name="knowledge_level"
+                            >
+                                <option
+                                    value="beginner"
+                                    {% if knowledge_level == "beginner" %}selected{% endif %}
+                                >
+                                    初級
+                                </option>
+
+                                <option
+                                    value="intermediate"
+                                    {% if knowledge_level == "intermediate" %}selected{% endif %}
+                                >
+                                    中級
+                                </option>
+
+                                <option
+                                    value="advanced"
+                                    {% if knowledge_level == "advanced" %}selected{% endif %}
+                                >
+                                    上級
+                                </option>
+                            </select>
+
+                            <small>
+                                IT分野についての現在の理解度
+                            </small>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <label for="question">質問内容</label>
+
+                <textarea
+                    id="question"
+                    name="question"
+                    maxlength="500"
+                    placeholder="例：外部キーとは何ですか？"
+                    required
+                >{{ question }}</textarea>
+
+
+                <div class="question-help">
+                    <span>対応している質問例：</span>
+
+                    <div class="example-keywords">
+                        <button
+                            type="button"
+                            onclick="setExample('外部キーとは何ですか？')"
+                        >
+                            外部キー
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="setExample('主キーとは何ですか？')"
+                        >
+                            主キー
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="setExample('APIとは何ですか？')"
+                        >
+                            API
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="setExample('クラウドとは何ですか？')"
+                        >
+                            クラウド
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="setExample('正規化とは何ですか？')"
+                        >
+                            正規化
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="setExample('仮想化とは何ですか？')"
+                        >
+                            仮想化
+                        </button>
+                    </div>
+                </div>
+
+
+                <fieldset class="level-selector">
+
+                    <legend>説明レベル</legend>
+
+                    <label class="level-option auto-level-option">
+                        <input
+                            type="radio"
+                            name="level"
+                            value="auto"
+                            {% if selected_level == "auto" %}checked{% endif %}
+                        >
+
+                        <span class="level-card">
+                            <strong>✨ 自動調整</strong>
+                            <small>
+                                学習者設定から説明方法を決定します
+                            </small>
+                        </span>
+                    </label>
+
+
+                    <label class="level-option">
+                        <input
+                            type="radio"
+                            name="level"
+                            value="easy"
+                            {% if selected_level == "easy" %}checked{% endif %}
+                        >
+
+                        <span class="level-card">
+                            <strong>やさしい日本語</strong>
+                            <small>短く、分かりやすく説明します</small>
+                        </span>
+                    </label>
+
+
+                    <label class="level-option">
+                        <input
+                            type="radio"
+                            name="level"
+                            value="standard"
+                            {% if selected_level == "standard" %}checked{% endif %}
+                        >
+
+                        <span class="level-card">
+                            <strong>標準</strong>
+                            <small>基本的な内容を説明します</small>
+                        </span>
+                    </label>
+
+
+                    <label class="level-option">
+                        <input
+                            type="radio"
+                            name="level"
+                            value="detailed"
+                            {% if selected_level == "detailed" %}checked{% endif %}
+                        >
+
+                        <span class="level-card">
+                            <strong>詳しい説明</strong>
+                            <small>専門的な内容まで説明します</small>
+                        </span>
+                    </label>
+
+                </fieldset>
+
+
+                <button type="submit" class="ask-btn">
+                    説明を表示する
+                </button>
+
+            </form>
+        </div>
+
+
+        <div class="ai-panel answer-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <p class="panel-label">STEP 02</p>
+                    <h2>🤖 個別化された説明</h2>
+                </div>
+
+                {% if answer %}
+                <span class="answer-status">回答生成済み</span>
+                {% endif %}
+            </div>
+
+
+            {% if answer %}
+
+                <div class="active-profile-summary">
+                    <div>
+                        <span>日本語</span>
+                        <strong>{{ japanese_level }}</strong>
+                    </div>
+
+                    <div>
+                        <span>IT知識</span>
+                        <strong>
+                            {% if knowledge_level == "beginner" %}
+                                初級
+                            {% elif knowledge_level == "intermediate" %}
+                                中級
+                            {% else %}
+                                上級
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>使用した説明</span>
+                        <strong>
+                            {% if effective_level == "easy" %}
+                                やさしい日本語
+                            {% elif effective_level == "standard" %}
+                                標準
+                            {% elif effective_level == "detailed" %}
+                                詳しい説明
+                            {% endif %}
+                        </strong>
+                    </div>
+                </div>
+
+
+                {% if adaptation_reason %}
+                <div class="ai-alert success-alert">
+                    <strong>説明方法を選択した理由：</strong>
+                    {{ adaptation_reason }}
+                </div>
+                {% endif %}
+
+
+                <div class="conversation-box">
+
+                    <div class="user-message">
+                        <div class="message-icon">👤</div>
+
+                        <div class="message-content">
+                            <span class="message-name">
+                                学習者の質問
+                            </span>
+
+                            <p>{{ question }}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="ai-message">
+                        <div class="message-icon">🤖</div>
+
+                        <div class="message-content">
+                            <span class="message-name">
+                                システムの説明
+                            </span>
+
+                            <p>{{ answer }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                {% if conversation_id %}
+                <div class="feedback-section">
+
+                    <h3>この説明は理解できましたか？</h3>
+
+                    <p>
+                        フィードバックに応じて、
+                        説明方法を調整します。
+                    </p>
+
+                    <div class="feedback-buttons">
+
+                        <form method="POST">
+                            <input
+                                type="hidden"
+                                name="conversation_id"
+                                value="{{ conversation_id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="understood"
+                                class="feedback-btn understood-btn"
+                            >
+                                👍 理解できた
+                            </button>
+                        </form>
+
+
+                        <form method="POST">
+                            <input
+                                type="hidden"
+                                name="conversation_id"
+                                value="{{ conversation_id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="simpler"
+                                class="feedback-btn simpler-btn"
+                            >
+                                ✨ もっと簡単に
+                            </button>
+                        </form>
+
+
+                        <form method="POST">
+                            <input
+                                type="hidden"
+                                name="conversation_id"
+                                value="{{ conversation_id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                name="action"
+                                value="example"
+                                class="feedback-btn example-btn"
+                            >
+                                📖 具体例がほしい
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+                {% endif %}
+
+
+            {% else %}
+
+                <div class="answer-placeholder">
+                    <div class="placeholder-icon">🧠</div>
+
+                    <h3>
+                        学習者設定と質問を入力してください
+                    </h3>
+
+                    <p>
+                        左側で日本語レベル、IT知識レベル、
+                        説明方法を設定すると、
+                        ここに個別化された説明が表示されます。
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <section class="research-feature-section">
+
+        <div class="research-feature">
+            <span>👤</span>
+
+            <div>
+                <h3>学習者モデル</h3>
+                <p>
+                    日本語レベルと専門知識を保存し、
+                    説明方法の調整に利用します。
+                </p>
+            </div>
+        </div>
+
+
+        <div class="research-feature">
+            <span>🧠</span>
+
+            <div>
+                <h3>説明根拠の可視化</h3>
+                <p>
+                    システムが説明方法を選択した理由を、
+                    学習者に分かる形で表示します。
+                </p>
+            </div>
+        </div>
+
+
+        <div class="research-feature">
+            <span>📊</span>
+
+            <div>
+                <h3>評価データの保存</h3>
+                <p>
+                    学習者設定、説明方法、回答、
+                    フィードバックを記録します。
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="history-section">
+
+        <div class="history-heading">
+            <div>
+                <p class="panel-label">LEARNING HISTORY</p>
+                <h2>最近の対話履歴</h2>
+            </div>
+
+            <span class="history-count">最大10件表示</span>
+        </div>
+
+
+        {% if history %}
+
+        <div class="history-list">
+
+            {% for item in history %}
+            <article class="history-item">
+
+                <div class="history-top">
+                    <div>
+                        <span class="history-number">
+                            #{{ item[0] }}
+                        </span>
+
+                        <strong>{{ item[1] }}</strong>
+                    </div>
+
+                    <time>{{ item[5] }}</time>
+                </div>
+
+
+                <div class="history-tags">
+
+                    <span class="level-tag standard-tag">
+                        日本語 {{ item[6] or "N2" }}
+                    </span>
+
+                    <span class="level-tag standard-tag">
+                        IT：
+                        {% if item[7] == "beginner" %}
+                            初級
+                        {% elif item[7] == "intermediate" %}
+                            中級
+                        {% elif item[7] == "advanced" %}
+                            上級
+                        {% else %}
+                            未設定
+                        {% endif %}
+                    </span>
+
+
+                    {% if item[2] == "easy" %}
+                    <span class="level-tag easy-tag">
+                        やさしい日本語
+                    </span>
+
+                    {% elif item[2] == "standard" %}
+                    <span class="level-tag standard-tag">
+                        標準
+                    </span>
+
+                    {% elif item[2] == "detailed" %}
+                    <span class="level-tag detailed-tag">
+                        詳しい説明
+                    </span>
+                    {% endif %}
+
+
+                    {% if item[9] == "auto" %}
+                    <span class="feedback-tag example-tag">
+                        自動調整
+                    </span>
+
+                    {% elif item[9] == "manual" %}
+                    <span class="feedback-tag no-feedback-tag">
+                        手動選択
+                    </span>
+
+                    {% elif item[9] == "feedback" %}
+                    <span class="feedback-tag simpler-tag">
+                        再説明
+                    </span>
+                    {% endif %}
+
+
+                    {% if item[4] == "understood" %}
+                    <span class="feedback-tag understood-tag">
+                        理解できた
+                    </span>
+
+                    {% elif item[4] == "simpler" %}
+                    <span class="feedback-tag simpler-tag">
+                        もっと簡単に
+                    </span>
+
+                    {% elif item[4] == "example" %}
+                    <span class="feedback-tag example-tag">
+                        具体例を希望
+                    </span>
+
+                    {% else %}
+                    <span class="feedback-tag no-feedback-tag">
+                        未評価
+                    </span>
+                    {% endif %}
+
+                </div>
+
+
+                {% if item[10] %}
+                <div class="history-answer">
+                    <span>説明方法を選択した理由</span>
+                    <p>{{ item[10] }}</p>
+                </div>
+                {% endif %}
+
+
+                <div class="history-answer">
+                    <span>回答</span>
+                    <p>{{ item[3] }}</p>
+                </div>
+
+            </article>
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+        <div class="history-empty">
+            <span>💬</span>
+            <p>まだ対話履歴がありません。</p>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<script>
+    function setExample(text) {
+        const questionInput =
+            document.getElementById("question");
+
+        questionInput.value = text;
+        questionInput.focus();
+    }
+</script>
+
+{% endblock %}

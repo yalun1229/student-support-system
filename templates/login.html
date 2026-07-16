@@ -2,36 +2,160 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ログイン｜留学生向け専門学習支援システム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>
+        ログイン｜生成AIを活用した対話型専門学習支援システム
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
-<body>
 
-    <h1>
-        留学生向け<br>
-        専門学習支援システム
-    </h1>
+<body class="login-page">
 
-    <p class="subtitle">
-        個人の学習記録・目標・学習状況を管理するためにログインしてください。
-    </p>
+    <main class="login-container">
 
-    <form method="POST" class="login-form">
+        <section class="login-card">
 
-        <label>ユーザー名</label>
-        <input type="text" name="username" required>
+            <!-- 左側：ログインエリア -->
+            <div class="login-left">
 
-        <label>パスワード</label>
-        <input type="password" name="password" required>
+                <p class="login-label">
+                    INTERACTIVE LEARNING SUPPORT SYSTEM
+                </p>
 
-        <button type="submit">ログイン</button>
+                <h1>
+                    対話型専門学習<br>
+                    支援システム
+                </h1>
 
-    </form>
+                <p class="login-subtitle">
+                    生成AIとの対話を通して、
+                    留学生の専門用語理解や授業内容の整理を支援する
+                    研究試作システムです。
+                </p>
 
-    {% if error %}
-        <p class="error-message">{{ error }}</p>
-    {% endif %}
+                <!-- デモ用アカウント -->
+                <div class="demo-account">
+
+                    <div class="demo-account-title">
+                        <span>🔑</span>
+                        <strong>デモ用アカウント</strong>
+                    </div>
+
+                    <div class="demo-account-info">
+
+                        <p>
+                            <span>ユーザー名</span>
+                            <strong>admin</strong>
+                        </p>
+
+                        <p>
+                            <span>パスワード</span>
+                            <strong>1234</strong>
+                        </p>
+
+                    </div>
+
+                    <small>
+                        本システムを体験するための
+                        簡易ログイン情報です。
+                    </small>
+
+                </div>
+
+                {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST" class="login-form">
+
+                    <label for="username">
+                        ユーザー名
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="ユーザー名を入力"
+                        autocomplete="username"
+                        required
+                    >
+
+                    <label for="password">
+                        パスワード
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="パスワードを入力"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button type="submit">
+                        ログイン
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- 右側：研究システム紹介 -->
+            <div class="login-right">
+
+                <div class="mini-dashboard">
+
+                    <p class="system-status">
+                        RESEARCH PROTOTYPE
+                    </p>
+
+                    <h2>
+                        分からないを、<br>
+                        対話で分かりやすく。
+                    </h2>
+
+                    <p>
+                        留学生が専門用語や授業内容について質問し、
+                        自分の理解度に合った説明を受けるための
+                        対話型学習支援システムを目指しています。
+                    </p>
+
+                    <div class="mini-stat">
+                        <span>💬 対話型質問支援</span>
+                        <strong>開発中</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>📝 説明レベル調整</span>
+                        <strong>開発予定</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>👍 理解度フィードバック</span>
+                        <strong>開発予定</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>📚 学習記録・目標管理</span>
+                        <strong>実装済み</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

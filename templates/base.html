@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        対話型専門学習支援システム
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    <nav class="app-navbar">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="app-logo"
+        >
+            <span class="logo-icon">🧠</span>
+
+            <span class="app-logo-text">
+                <strong>EduBridge AI</strong>
+                <small>対話型専門学習支援</small>
+            </span>
+        </a>
+
+
+        <div class="nav-links">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="{% if request.endpoint == 'home' %}active{% endif %}"
+            >
+                ホーム
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="{% if request.endpoint in ['dashboard', 'edit_record'] %}active{% endif %}"
+            >
+                学習記録
+            </a>
+
+            <a
+                href="{{ url_for('goals') }}"
+                class="{% if request.endpoint == 'goals' %}active{% endif %}"
+            >
+                学習目標
+            </a>
+
+            <a
+                href="{{ url_for('ai') }}"
+                class="{% if request.endpoint == 'ai' %}active{% endif %}"
+            >
+                対話型学習支援
+            </a>
+
+            <a
+                href="{{ url_for('evaluation') }}"
+                class="{% if request.endpoint == 'evaluation' %}active{% endif %}"
+            >
+                研究評価
+            </a>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <span class="lang-pill">
+                日本語
+            </span>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-btn"
+            >
+                ログアウト
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

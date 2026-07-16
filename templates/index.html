@@ -2,98 +2,284 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>画像情報と生成AIを活用した留学生向け専門学習支援システム</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>対話型専門学習支援システム</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
+
 <body>
 
-    <h1>
-        画像情報と生成AIを活用した<br>
-        留学生向け専門学習支援システム
-    </h1>
+<section class="hero-section">
 
-    <p class="subtitle">
-        留学生の専門学習を支援するためのWebシステム
-    </p>
+    <button
+        type="button"
+        class="lang-btn"
+        onclick="toggleLang()"
+    >
+        🌐 日本語 / English
+    </button>
 
-    <h2>研究背景</h2>
+    <div class="hero-content">
 
-    <p>
-        近年、日本で専門分野を学ぶ留学生は増加しています。しかし、留学生にとって専門科目の学習では、
-        日本語の理解だけでなく、専門用語、授業資料、板書、プログラム画面などを正確に理解することが難しい場合があります。
-    </p>
+        <p class="hero-badge" id="badge">
+            RESEARCH PROTOTYPE
+        </p>
 
-    <p>
-        特にIT分野では、授業内容に専門用語や英語表記、プログラムコードが多く含まれるため、
-        学習内容を整理したり、分からない点を日本語で質問したりすることに困難を感じる留学生も少なくありません。
-    </p>
+        <h1 id="title">
+            対話型専門学習<br>
+            支援システム
+        </h1>
 
-    <h2>研究目的</h2>
+        <p class="hero-text" id="description">
+            留学生が専門用語や授業内容について質問し、
+            自分の理解度に合った説明を受けることを目的とした
+            生成AI活用型の学習支援システムです。
+        </p>
 
-    <p>
-        本研究では、画像情報と生成AIを活用し、留学生が専門学習の内容を理解しやすくするための
-        学習支援システムを開発することを目的としています。
-    </p>
+        <p class="hero-note" id="note">
+            現在は学習記録・目標管理機能を実装し、
+            対話型質問支援機能を開発しています。
+        </p>
 
-    <p>
-        授業資料やノート、プログラム画面などの情報をもとに、専門用語の説明、学習内容の整理、
-        質問文の作成支援を行うことで、留学生の学習負担を軽減することを目指します。
-    </p>
+        <div class="hero-buttons">
 
-    <h2>システム概要</h2>
+            <a
+                href="{{ url_for('login') }}"
+                class="btn-primary"
+                id="startBtn"
+            >
+                システムを体験する
+            </a>
 
-    <p>
-        本システムは、留学生が日々の専門学習で分からなかった内容を入力し、
-        その内容を整理・確認できるWebアプリケーションです。
-    </p>
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="btn-secondary"
+                id="dashboardBtn"
+            >
+                ダッシュボード
+            </a>
 
-    <p>
-        現在は学習記録、目標管理、学習時間の可視化を中心とした原型システムとして開発しています。
-        今後は画像アップロード機能やOCR機能、生成AIによる説明生成機能を追加し、
-        より実用的な学習支援システムへ発展させる予定です。
-    </p>
+        </div>
 
-    <h2>主な機能</h2>
+    </div>
 
-    <ul>
-        <li>学習内容の記録・整理</li>
-        <li>学習目標と達成率の管理</li>
-        <li>学習時間のグラフ表示</li>
-        <li>専門用語や分からない内容のメモ</li>
-        <li>ログイン機能による個人学習データの管理</li>
-        <li>今後：画像アップロード機能の追加</li>
-        <li>今後：OCRによる文字抽出機能の追加</li>
-        <li>今後：生成AIによる専門用語説明機能の追加</li>
-    </ul>
+    <div class="hero-card">
 
-    <h2>使用技術</h2>
+        <div class="preview-header">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    <ul>
-        <li>Python</li>
-        <li>Flask</li>
-        <li>HTML / CSS</li>
-        <li>JavaScript</li>
-        <li>SQL</li>
-        <li>今後：OCR技術</li>
-        <li>今後：生成AI API</li>
-    </ul>
+        <div class="preview-body">
 
-    <h2>今後の課題</h2>
+            <p class="prototype-label" id="prototypeLabel">
+                対話型学習支援
+            </p>
 
-    <p>
-        今後は、授業資料、板書、ノート、プログラム画面などの画像をアップロードできる機能を追加し、
-        画像内の文字情報をOCRで抽出できるようにします。
-    </p>
+            <h3 id="supportTitle">
+                分からない内容を、<br>
+                自分に合った説明へ。
+            </h3>
 
-    <p>
-        また、抽出した内容を生成AIによって分かりやすく説明し、
-        留学生が専門用語や授業内容を理解しやすくする機能を実装する予定です。
-        さらに、実際の留学生に利用してもらい、アンケートや利用記録をもとに有効性を評価することを目指します。
-    </p>
+            <div class="support-preview">
 
-    <a href="/login">
-        <button>システムを開始する</button>
-    </a>
+                <div class="question-preview">
+                    <span>質問</span>
+                    <p id="questionText">
+                        外部キーとは何ですか？
+                    </p>
+                </div>
+
+                <div class="answer-preview">
+                    <span>説明</span>
+                    <p id="answerText">
+                        外部キーは、別のテーブルにあるデータとの
+                        関係を作るために使用する項目です。
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="feedback-preview">
+
+                <button type="button" id="understoodBtn">
+                    理解できた
+                </button>
+
+                <button type="button" id="simpleBtn">
+                    もっと簡単に
+                </button>
+
+                <button type="button" id="exampleBtn">
+                    具体例がほしい
+                </button>
+
+            </div>
+
+            <div class="feature-status">
+
+                <div>
+                    <span>📚</span>
+                    <p id="recordFeature">学習記録</p>
+                    <strong id="recordStatus">実装済み</strong>
+                </div>
+
+                <div>
+                    <span>💬</span>
+                    <p id="dialogFeature">対話支援</p>
+                    <strong id="dialogStatus">開発中</strong>
+                </div>
+
+                <div>
+                    <span>👍</span>
+                    <p id="feedbackFeature">理解度評価</p>
+                    <strong id="feedbackStatus">開発予定</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    let currentLang = "ja";
+
+    function toggleLang() {
+        if (currentLang === "ja") {
+            document.documentElement.lang = "en";
+
+            document.getElementById("badge").textContent =
+                "RESEARCH PROTOTYPE";
+
+            document.getElementById("title").innerHTML =
+                "Interactive Specialized Learning<br>Support System";
+
+            document.getElementById("description").textContent =
+                "A generative AI-based learning support system designed to help international students ask questions about technical terms and course content and receive explanations suited to their level of understanding.";
+
+            document.getElementById("note").textContent =
+                "Learning record and goal management features have been implemented, while interactive question support is currently under development.";
+
+            document.getElementById("startBtn").textContent =
+                "Try the System";
+
+            document.getElementById("dashboardBtn").textContent =
+                "Dashboard";
+
+            document.getElementById("prototypeLabel").textContent =
+                "Interactive Learning Support";
+
+            document.getElementById("supportTitle").innerHTML =
+                "Turn difficult content into<br>clear explanations.";
+
+            document.getElementById("questionText").textContent =
+                "What is a foreign key?";
+
+            document.getElementById("answerText").textContent =
+                "A foreign key is a field used to create a relationship with data stored in another table.";
+
+            document.getElementById("understoodBtn").textContent =
+                "I understand";
+
+            document.getElementById("simpleBtn").textContent =
+                "Explain more simply";
+
+            document.getElementById("exampleBtn").textContent =
+                "Show an example";
+
+            document.getElementById("recordFeature").textContent =
+                "Learning Records";
+
+            document.getElementById("recordStatus").textContent =
+                "Implemented";
+
+            document.getElementById("dialogFeature").textContent =
+                "Dialogue Support";
+
+            document.getElementById("dialogStatus").textContent =
+                "In Development";
+
+            document.getElementById("feedbackFeature").textContent =
+                "Understanding Feedback";
+
+            document.getElementById("feedbackStatus").textContent =
+                "Planned";
+
+            currentLang = "en";
+
+        } else {
+            document.documentElement.lang = "ja";
+
+            document.getElementById("badge").textContent =
+                "RESEARCH PROTOTYPE";
+
+            document.getElementById("title").innerHTML =
+                "対話型専門学習<br>支援システム";
+
+            document.getElementById("description").textContent =
+                "留学生が専門用語や授業内容について質問し、自分の理解度に合った説明を受けることを目的とした生成AI活用型の学習支援システムです。";
+
+            document.getElementById("note").textContent =
+                "現在は学習記録・目標管理機能を実装し、対話型質問支援機能を開発しています。";
+
+            document.getElementById("startBtn").textContent =
+                "システムを体験する";
+
+            document.getElementById("dashboardBtn").textContent =
+                "ダッシュボード";
+
+            document.getElementById("prototypeLabel").textContent =
+                "対話型学習支援";
+
+            document.getElementById("supportTitle").innerHTML =
+                "分からない内容を、<br>自分に合った説明へ。";
+
+            document.getElementById("questionText").textContent =
+                "外部キーとは何ですか？";
+
+            document.getElementById("answerText").textContent =
+                "外部キーは、別のテーブルにあるデータとの関係を作るために使用する項目です。";
+
+            document.getElementById("understoodBtn").textContent =
+                "理解できた";
+
+            document.getElementById("simpleBtn").textContent =
+                "もっと簡単に";
+
+            document.getElementById("exampleBtn").textContent =
+                "具体例がほしい";
+
+            document.getElementById("recordFeature").textContent =
+                "学習記録";
+
+            document.getElementById("recordStatus").textContent =
+                "実装済み";
+
+            document.getElementById("dialogFeature").textContent =
+                "対話支援";
+
+            document.getElementById("dialogStatus").textContent =
+                "開発中";
+
+            document.getElementById("feedbackFeature").textContent =
+                "理解度評価";
+
+            document.getElementById("feedbackStatus").textContent =
+                "開発予定";
+
+            currentLang = "ja";
+        }
+    }
+</script>
 
 </body>
 </html>

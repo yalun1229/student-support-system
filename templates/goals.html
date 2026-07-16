@@ -1,82 +1,92 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>学習目標管理｜留学生向け専門学習支援システム</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% block title %}Goals｜EduBridge AI{% endblock %}
 
-    <div class="navbar">
-        <a href="/dashboard">学習ダッシュボード</a>
-        <a href="/goals">学習目標</a>
-        <a href="/logout">ログアウト</a>
-    </div>
+{% block body_class %}goals-page{% endblock %}
 
-    <h1>専門学習目標の管理</h1>
+{% block content %}
 
-    <p class="subtitle">
-        研究計画に基づき、専門科目や開発に必要な学習目標を管理する画面です。
-    </p>
+<main class="goals-container">
 
-    <h2>この画面の目的</h2>
+    <section class="goals-hero">
+        <div>
+            <p class="hero-badge">Goal Management</p>
+            <h1>学習目標</h1>
+            <p>専門学習の目標を設定し、進捗を確認できます。</p>
+        </div>
+    </section>
 
-    <p>
-        本システムでは、留学生が専門分野を継続的に学習できるように、
-        科目ごとの学習目標時間を設定し、現在の学習時間との達成状況を確認できます。
-    </p>
+    <section class="goals-grid">
 
-    <p>
-        特に、Python、Web開発、SQL、画像処理、OCR、生成AIなど、
-        今後の研究開発に必要な学習内容を整理することを目的としています。
-    </p>
+        <div class="panel">
+            <h2>新しい目標を追加</h2>
 
-    <h2>学習目標の追加</h2>
+            <form method="POST" class="goal-form">
+                <label>科目名・学習テーマ</label>
+                <input type="text" name="subject" placeholder="例：Python、Flask、OCR、生成AI" required>
 
-    <form method="POST" class="goal-form">
+                <label>目標時間</label>
+                <input type="number" name="target_hours" placeholder="例：10" required>
 
-        <label>科目名・学習テーマ</label>
-        <input type="text" name="subject" placeholder="例：Python、Flask、OCR、生成AI" required>
+                <button type="submit">追加する</button>
+            </form>
+        </div>
 
-        <label>目標時間</label>
-        <input type="number" name="target_hours" placeholder="例：10" required>
+        <div class="panel goal-summary">
+            <h2>Focus</h2>
+            <p>小さな目標を積み重ねることで、専門学習の継続を支援します。</p>
 
-        <button type="submit">目標を追加する</button>
+            <div class="summary-chip">📚 Study</div>
+            <div class="summary-chip">🎯 Goals</div>
+            <div class="summary-chip">📈 Progress</div>
+        </div>
 
-    </form>
+    </section>
 
-    <hr>
+    <section class="panel">
+        <h2>目標一覧</h2>
 
-    <h2>目標一覧</h2>
+        <div class="goal-card-list">
+            {% for goal in goals %}
+            <div class="goal-card">
 
-    <ul class="goal-list">
-        {% for goal in goals %}
-            <li>
-                <h3>{{ goal.subject }}</h3>
+                <div class="goal-card-header">
+                    <div>
+                        <h3>{{ goal.subject }}</h3>
+                        <p>{{ goal.total_hours }}時間 / {{ goal.target_hours }}時間</p>
+                    </div>
 
-                <p class="goal-time">
-                    現在の学習時間：{{ goal.total_hours }} 時間 / 目標時間：{{ goal.target_hours }} 時間
-                </p>
+                    <span class="goal-percent">
+                        {{ goal.progress }}%
+                    </span>
+                </div>
 
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width:{{ goal.progress }}%;">
-                        {{ goal.progress }}%
-                    </div>
+                    <div class="progress-fill" style="width: {{ goal.progress }}%;"></div>
                 </div>
-            </li>
-        {% endfor %}
-    </ul>
 
-    <h2>今後の学習課題</h2>
+                <form action="/delete_goal/{{ goal.id }}" method="POST">
+                    <button type="submit" class="delete-btn">
+                        削除
+                    </button>
+                </form>
 
-    <ul>
-        <li>画像アップロード機能の実装に必要なWeb開発技術の学習</li>
-        <li>OCRを用いた画像内文字抽出の学習</li>
-        <li>生成AI APIを利用した説明生成機能の理解</li>
-        <li>留学生の学習支援に適した画面設計の改善</li>
-        <li>アンケートや利用記録を用いたシステム評価方法の検討</li>
-    </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
 
-</body>
-</html>
+    <section class="panel">
+        <h2>今後の開発予定</h2>
+
+        <div class="future-list">
+            <span>画像アップロード</span>
+            <span>OCR</span>
+            <span>生成AI説明</span>
+            <span>教材画像からの支援</span>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

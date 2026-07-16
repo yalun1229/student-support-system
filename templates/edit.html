@@ -1,42 +1,53 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>学習記録編集｜留学生向け専門学習支援システム</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% block title %}Edit Record｜EduBridge AI{% endblock %}
 
-    <div class="navbar">
-        <a href="/dashboard">学習ダッシュボード</a>
-        <a href="/goals">学習目標</a>
-        <a href="/logout">ログアウト</a>
-    </div>
+{% block body_class %}edit-page{% endblock %}
 
-    <h1>専門学習内容の編集</h1>
+{% block content %}
 
-    <p class="subtitle">
-        登録した専門学習の内容や学習時間を修正する画面です。
-    </p>
+<main class="edit-container">
 
-    <h2>学習記録の修正</h2>
+    <section class="edit-card">
 
-    <form method="POST" class="study-form">
+        <p class="hero-badge">Edit Record</p>
 
-        <label>科目名・学習内容</label>
-        <input type="text" name="subject" value="{{ record[1] }}" required>
+        <h1>学習記録を編集</h1>
 
-        <label>学習時間</label>
-        <input type="number" name="hours" value="{{ record[2] }}" required>
+        <p class="edit-subtitle">
+            科目名や学習時間を修正できます。
+        </p>
 
-        <button type="submit">記録を更新する</button>
+        <form method="POST" class="study-form">
 
-    </form>
+            <label>科目名・学習内容</label>
+            <input
+                type="text"
+                name="subject"
+                value="{{ record[1] }}"
+                required
+            >
 
-    <a href="/dashboard">
-        <button type="button">ダッシュボードに戻る</button>
-    </a>
+            <label>学習時間</label>
+            <input
+                type="number"
+                name="hours"
+                value="{{ record[2] }}"
+                required
+            >
 
-</body>
-</html>
+            <button type="submit">
+                更新する
+            </button>
+
+        </form>
+
+        <a href="/dashboard" class="back-link">
+            ダッシュボードに戻る
+        </a>
+
+    </section>
+
+</main>
+
+{% endblock %}

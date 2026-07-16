@@ -1,0 +1,548 @@
+{% extends "base.html" %}
+
+{% block title %}
+研究評価｜対話型専門学習支援システム
+{% endblock %}
+
+{% block body_class %}
+evaluation-page
+{% endblock %}
+
+{% block content %}
+
+<main class="evaluation-container">
+
+    <section class="evaluation-hero">
+        <div>
+            <p class="evaluation-badge">
+                RESEARCH EVALUATION
+            </p>
+
+            <h1>
+                対話データの集計・評価
+            </h1>
+
+            <p>
+                学習者設定、説明レベル、フィードバックを集計し、
+                個別化された説明の有用性を確認します。
+            </p>
+        </div>
+
+        <div class="evaluation-purpose">
+            <strong>評価の目的</strong>
+            <span>
+                学習者の特徴に応じた説明調整が、
+                理解支援につながるかを検討するための試作画面です。
+            </span>
+        </div>
+    </section>
+
+
+    <section class="metric-grid">
+
+        <article class="metric-card">
+            <span class="metric-icon">💬</span>
+            <p>全対話数</p>
+            <strong>{{ total_conversations }}</strong>
+            <small>保存された回答・再説明</small>
+        </article>
+
+        <article class="metric-card">
+            <span class="metric-icon">🧠</span>
+            <p>自動調整</p>
+            <strong>{{ auto_count }}</strong>
+            <small>学習者モデルによる選択</small>
+        </article>
+
+        <article class="metric-card">
+            <span class="metric-icon">🔁</span>
+            <p>再説明</p>
+            <strong>{{ reexplanation_count }}</strong>
+            <small>フィードバック後の回答</small>
+        </article>
+
+        <article class="metric-card highlight-card">
+            <span class="metric-icon">👍</span>
+            <p>理解率</p>
+            <strong>{{ understanding_rate }}%</strong>
+            <small>評価済み回答における割合</small>
+        </article>
+
+    </section>
+
+
+    <section class="evaluation-grid">
+
+        <article class="evaluation-panel">
+
+            <div class="panel-title-row">
+                <div>
+                    <p class="section-label">
+                        FEEDBACK
+                    </p>
+
+                    <h2>
+                        フィードバック集計
+                    </h2>
+                </div>
+
+                <span class="panel-count">
+                    評価済み {{ evaluated_count }}件
+                </span>
+            </div>
+
+
+            <div class="feedback-stat-list">
+
+                <div class="feedback-stat understood-stat">
+                    <div>
+                        <span>👍</span>
+                        <strong>理解できた</strong>
+                    </div>
+
+                    <b>{{ understood_count }}</b>
+                </div>
+
+                <div class="feedback-stat simpler-stat">
+                    <div>
+                        <span>✨</span>
+                        <strong>もっと簡単に</strong>
+                    </div>
+
+                    <b>{{ simpler_count }}</b>
+                </div>
+
+                <div class="feedback-stat example-stat">
+                    <div>
+                        <span>📖</span>
+                        <strong>具体例がほしい</strong>
+                    </div>
+
+                    <b>{{ example_count }}</b>
+                </div>
+
+                <div class="feedback-stat pending-stat">
+                    <div>
+                        <span>○</span>
+                        <strong>未評価</strong>
+                    </div>
+
+                    <b>{{ unevaluated_count }}</b>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="evaluation-panel">
+
+            <div class="panel-title-row">
+                <div>
+                    <p class="section-label">
+                        SELECTION MODE
+                    </p>
+
+                    <h2>
+                        説明方法の選択
+                    </h2>
+                </div>
+            </div>
+
+
+            {% set selection_total =
+                auto_count + manual_count + reexplanation_count
+            %}
+
+            <div class="selection-summary">
+
+                <div>
+                    <span>自動調整</span>
+                    <strong>{{ auto_count }}</strong>
+                </div>
+
+                <div>
+                    <span>手動選択</span>
+                    <strong>{{ manual_count }}</strong>
+                </div>
+
+                <div>
+                    <span>再説明</span>
+                    <strong>{{ reexplanation_count }}</strong>
+                </div>
+
+            </div>
+
+
+            <div class="selection-bars">
+
+                <div class="selection-row">
+                    <div>
+                        <span>自動調整</span>
+                        <b>
+                            {% if selection_total > 0 %}
+                                {{ ((auto_count / selection_total) * 100) | round(1) }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </b>
+                    </div>
+
+                    <div class="bar-track">
+                        <div
+                            class="bar-fill auto-fill"
+                            style="width:
+                            {% if selection_total > 0 %}
+                                {{ (auto_count / selection_total) * 100 }}%
+                            {% else %}
+                                0%
+                            {% endif %};"
+                        ></div>
+                    </div>
+                </div>
+
+
+                <div class="selection-row">
+                    <div>
+                        <span>手動選択</span>
+                        <b>
+                            {% if selection_total > 0 %}
+                                {{ ((manual_count / selection_total) * 100) | round(1) }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </b>
+                    </div>
+
+                    <div class="bar-track">
+                        <div
+                            class="bar-fill manual-fill"
+                            style="width:
+                            {% if selection_total > 0 %}
+                                {{ (manual_count / selection_total) * 100 }}%
+                            {% else %}
+                                0%
+                            {% endif %};"
+                        ></div>
+                    </div>
+                </div>
+
+
+                <div class="selection-row">
+                    <div>
+                        <span>再説明</span>
+                        <b>
+                            {% if selection_total > 0 %}
+                                {{ ((reexplanation_count / selection_total) * 100) | round(1) }}%
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </b>
+                    </div>
+
+                    <div class="bar-track">
+                        <div
+                            class="bar-fill feedback-fill"
+                            style="width:
+                            {% if selection_total > 0 %}
+                                {{ (reexplanation_count / selection_total) * 100 }}%
+                            {% else %}
+                                0%
+                            {% endif %};"
+                        ></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <section class="evaluation-panel full-panel">
+
+        <div class="panel-title-row">
+            <div>
+                <p class="section-label">
+                    EXPLANATION LEVEL
+                </p>
+
+                <h2>
+                    説明レベル別の評価
+                </h2>
+            </div>
+
+            <span class="panel-note">
+                理解率 ＝「理解できた」÷ 評価済み回答
+            </span>
+        </div>
+
+
+        <div class="level-evaluation-grid">
+
+            {% for item in level_statistics %}
+
+            <article class="level-evaluation-card {{ item.key }}-level-card">
+
+                <div class="level-evaluation-header">
+                    <div>
+                        <span class="level-dot"></span>
+                        <strong>{{ item.name }}</strong>
+                    </div>
+
+                    <b>{{ item.total }}件</b>
+                </div>
+
+
+                <div class="rate-display">
+                    <span>理解率</span>
+                    <strong>
+                        {{ item.understanding_rate }}%
+                    </strong>
+                </div>
+
+
+                <div class="rate-track">
+                    <div
+                        class="rate-fill"
+                        style="width:
+                        {{ item.understanding_rate }}%;"
+                    ></div>
+                </div>
+
+
+                <div class="level-detail-list">
+                    <span>
+                        理解できた
+                        <b>{{ item.understood }}</b>
+                    </span>
+
+                    <span>
+                        もっと簡単に
+                        <b>{{ item.simpler }}</b>
+                    </span>
+
+                    <span>
+                        具体例
+                        <b>{{ item.example }}</b>
+                    </span>
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <section class="evaluation-grid lower-grid">
+
+        <article class="evaluation-panel">
+
+            <div class="panel-title-row">
+                <div>
+                    <p class="section-label">
+                        LEARNER PROFILE
+                    </p>
+
+                    <h2>
+                        学習者設定の利用状況
+                    </h2>
+                </div>
+            </div>
+
+
+            {% if profile_statistics %}
+
+            <div class="profile-stat-list">
+
+                {% for profile in profile_statistics %}
+
+                <div class="profile-stat-item">
+                    <div>
+                        <span>
+                            日本語 {{ profile.japanese_level }}
+                        </span>
+
+                        <strong>
+                            IT {{ profile.knowledge_level }}
+                        </strong>
+                    </div>
+
+                    <b>{{ profile.count }}件</b>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-evaluation">
+                まだ学習者設定データがありません。
+            </div>
+
+            {% endif %}
+
+        </article>
+
+
+        <article class="evaluation-panel">
+
+            <div class="panel-title-row">
+                <div>
+                    <p class="section-label">
+                        INTERPRETATION
+                    </p>
+
+                    <h2>
+                        現段階で確認できること
+                    </h2>
+                </div>
+            </div>
+
+
+            <div class="interpretation-box">
+
+                {% if evaluated_count == 0 %}
+
+                <p>
+                    まだ評価済みデータがありません。
+                    「理解できた」「もっと簡単に」
+                    「具体例がほしい」を選択すると集計されます。
+                </p>
+
+                {% else %}
+
+                <p>
+                    現在、評価済み回答のうち
+                    <strong>{{ understanding_rate }}%</strong>
+                    が「理解できた」と評価されています。
+                </p>
+
+                <p>
+                    この数値だけで有効性を断定することはできません。
+                    今後は複数の留学生による利用実験と、
+                    アンケート結果を合わせて検討する必要があります。
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <section class="evaluation-panel full-panel">
+
+        <div class="panel-title-row">
+            <div>
+                <p class="section-label">
+                    RECENT DATA
+                </p>
+
+                <h2>
+                    最近の評価データ
+                </h2>
+            </div>
+        </div>
+
+
+        {% if recent_data %}
+
+        <div class="evaluation-table-wrap">
+
+            <table class="evaluation-table">
+
+                <thead>
+                    <tr>
+                        <th>日時</th>
+                        <th>質問</th>
+                        <th>学習者設定</th>
+                        <th>説明</th>
+                        <th>選択方式</th>
+                        <th>評価</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in recent_data %}
+
+                    <tr>
+                        <td>{{ item[7] }}</td>
+
+                        <td>{{ item[0] }}</td>
+
+                        <td>
+                            {{ item[3] or "未設定" }} /
+                            {% if item[4] == "beginner" %}
+                                初級
+                            {% elif item[4] == "intermediate" %}
+                                中級
+                            {% elif item[4] == "advanced" %}
+                                上級
+                            {% else %}
+                                未設定
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if item[1] == "easy" %}
+                                やさしい日本語
+                            {% elif item[1] == "standard" %}
+                                標準
+                            {% elif item[1] == "detailed" %}
+                                詳しい説明
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if item[5] == "auto" %}
+                                自動調整
+                            {% elif item[5] == "manual" %}
+                                手動選択
+                            {% elif item[5] == "feedback" %}
+                                再説明
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if item[2] == "understood" %}
+                                理解できた
+                            {% elif item[2] == "simpler" %}
+                                もっと簡単に
+                            {% elif item[2] == "example" %}
+                                具体例
+                            {% else %}
+                                未評価
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-evaluation">
+            まだ評価データがありません。
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+{% endblock %}

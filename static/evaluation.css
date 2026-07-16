@@ -1,0 +1,551 @@
+/* ========================================
+   研究評価ページ
+======================================== */
+
+.evaluation-page {
+    min-height: 100vh;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+.evaluation-container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 44px 0 80px;
+}
+
+.evaluation-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 36px;
+    margin-bottom: 26px;
+    padding: 38px 42px;
+    border-radius: 26px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255, 255, 255, 0.17),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #4f46e5
+        );
+    color: #ffffff;
+    box-shadow: 0 18px 42px rgba(37, 99, 235, 0.18);
+}
+
+.evaluation-badge {
+    display: inline-block;
+    margin: 0 0 13px;
+    padding: 7px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.13);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+}
+
+.evaluation-hero h1 {
+    margin: 0 0 13px;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.25;
+}
+
+.evaluation-hero > div:first-child > p:last-child {
+    max-width: 660px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.evaluation-purpose {
+    max-width: 340px;
+    padding: 16px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.evaluation-purpose strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.evaluation-purpose span {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* 指標 */
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.metric-card {
+    padding: 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.metric-icon {
+    display: block;
+    margin-bottom: 13px;
+    font-size: 25px;
+}
+
+.metric-card p {
+    margin: 0 0 6px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.metric-card strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #172033;
+    font-size: 31px;
+}
+
+.metric-card small {
+    color: #94a3b8;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.highlight-card {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+}
+
+.highlight-card strong {
+    color: #15803d;
+}
+
+
+/* パネル */
+
+.evaluation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.evaluation-panel {
+    min-width: 0;
+    padding: 26px;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.055);
+}
+
+.full-panel {
+    margin-bottom: 22px;
+}
+
+.panel-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 21px;
+}
+
+.section-label {
+    margin: 0 0 7px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.panel-title-row h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 21px;
+}
+
+.panel-count,
+.panel-note {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* フィードバック */
+
+.feedback-stat-list {
+    display: grid;
+    gap: 10px;
+}
+
+.feedback-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 16px;
+    border-radius: 14px;
+}
+
+.feedback-stat > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feedback-stat strong {
+    font-size: 13px;
+}
+
+.feedback-stat b {
+    font-size: 21px;
+}
+
+.understood-stat {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.simpler-stat {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.example-stat {
+    background: #f5f3ff;
+    color: #6d28d9;
+}
+
+.pending-stat {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+
+/* 選択方式 */
+
+.selection-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.selection-summary div {
+    padding: 14px 10px;
+    border-radius: 13px;
+    background: #f8fafc;
+    text-align: center;
+}
+
+.selection-summary span {
+    display: block;
+    margin-bottom: 5px;
+    color: #64748b;
+    font-size: 10px;
+}
+
+.selection-summary strong {
+    color: #172033;
+    font-size: 21px;
+}
+
+.selection-bars {
+    display: grid;
+    gap: 15px;
+}
+
+.selection-row > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    color: #475569;
+    font-size: 11px;
+}
+
+.bar-track,
+.rate-track {
+    overflow: hidden;
+    height: 9px;
+    border-radius: 999px;
+    background: #e2e8f0;
+}
+
+.bar-fill,
+.rate-fill {
+    height: 100%;
+    border-radius: inherit;
+}
+
+.auto-fill {
+    background: #8b5cf6;
+}
+
+.manual-fill {
+    background: #3b82f6;
+}
+
+.feedback-fill {
+    background: #14b8a6;
+}
+
+
+/* レベル別評価 */
+
+.level-evaluation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.level-evaluation-card {
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 17px;
+    background: #f8fafc;
+}
+
+.level-evaluation-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.level-evaluation-header > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.level-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #64748b;
+}
+
+.easy-level-card .level-dot,
+.easy-level-card .rate-fill {
+    background: #10b981;
+}
+
+.standard-level-card .level-dot,
+.standard-level-card .rate-fill {
+    background: #3b82f6;
+}
+
+.detailed-level-card .level-dot,
+.detailed-level-card .rate-fill {
+    background: #8b5cf6;
+}
+
+.level-evaluation-header strong {
+    font-size: 13px;
+}
+
+.level-evaluation-header b {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.rate-display {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+
+.rate-display span {
+    color: #64748b;
+    font-size: 10px;
+}
+
+.rate-display strong {
+    font-size: 24px;
+}
+
+.level-detail-list {
+    display: grid;
+    gap: 7px;
+    margin-top: 16px;
+}
+
+.level-detail-list span {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 10px;
+}
+
+.level-detail-list b {
+    color: #334155;
+}
+
+
+/* 学習者設定 */
+
+.profile-stat-list {
+    display: grid;
+    gap: 10px;
+}
+
+.profile-stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 13px;
+    background: #f8fafc;
+}
+
+.profile-stat-item span {
+    display: block;
+    margin-bottom: 3px;
+    color: #64748b;
+    font-size: 10px;
+}
+
+.profile-stat-item strong {
+    font-size: 13px;
+}
+
+.profile-stat-item > b {
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.interpretation-box {
+    padding: 18px;
+    border: 1px solid #dbeafe;
+    border-radius: 15px;
+    background: #eff6ff;
+}
+
+.interpretation-box p {
+    margin: 0;
+    color: #334155;
+    font-size: 12px;
+    line-height: 1.85;
+}
+
+.interpretation-box p + p {
+    margin-top: 12px;
+}
+
+.interpretation-box strong {
+    color: #1d4ed8;
+}
+
+
+/* テーブル */
+
+.evaluation-table-wrap {
+    overflow-x: auto;
+}
+
+.evaluation-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.evaluation-table th {
+    color: #64748b;
+    font-size: 10px;
+    letter-spacing: 0.4px;
+}
+
+.evaluation-table td {
+    color: #334155;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.empty-evaluation {
+    padding: 32px 20px;
+    border: 2px dashed #e2e8f0;
+    border-radius: 15px;
+    color: #64748b;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+/* レスポンシブ */
+
+@media (max-width: 920px) {
+    .evaluation-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .evaluation-purpose {
+        max-width: none;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .evaluation-grid,
+    .level-evaluation-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .evaluation-container {
+        width: min(100% - 24px, 1180px);
+        padding-top: 24px;
+    }
+
+    .evaluation-hero {
+        padding: 30px 24px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .evaluation-panel {
+        padding: 21px;
+    }
+
+    .panel-title-row {
+        flex-direction: column;
+    }
+
+    .selection-summary {
+        grid-template-columns: 1fr;
+    }
+}

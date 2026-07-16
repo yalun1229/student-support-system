@@ -1,0 +1,144 @@
+.app-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 64px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.logo-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eef4ff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a {
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.nav-links a:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-pill {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.logout-btn {
+    padding: 8px 15px;
+    border-radius: 999px;
+    background: #2563eb;
+    color: white;
+    font-weight: 700;
+}
+
+.logout-btn:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 850px) {
+    .app-navbar {
+        height: auto;
+        padding: 16px 24px;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .nav-links,
+    .nav-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+.nav-links a.active {
+    background: #eff6ff;
+    color: #2563eb;
+}
+/* ロゴのタイトルとサブタイトル */
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.app-logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    line-height: 1.2;
+}
+
+.app-logo-text strong {
+    color: #172033;
+    font-size: 18px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.app-logo-text small {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.logo-icon {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 12px;
+    background: #f1f5ff;
+    font-size: 18px;
+}
+
+@media (max-width: 900px) {
+    .app-logo-text small {
+        display: none;
+    }
+}

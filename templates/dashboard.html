@@ -1,126 +1,118 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>専門学習ダッシュボード｜留学生向け専門学習支援システム</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-    <div class="navbar">
-        <a href="/dashboard">学習ダッシュボード</a>
-        <a href="/goals">学習目標</a>
-        <a href="/logout">ログアウト</a>
-    </div>
+{% block title %}Dashboard｜EduBridge AI{% endblock %}
 
-    <h1>
-        専門学習ダッシュボード
-    </h1>
+{% block body_class %}dashboard-page{% endblock %}
 
-    <p class="subtitle">
-        留学生の専門学習内容を記録し、学習状況を確認するための画面です。
-    </p>
+{% block content %}
 
-    <h2>システムの役割</h2>
+<main class="dashboard-container">
 
-    <p>
-        この画面では、IT分野などの専門科目で学習した内容や学習時間を記録し、
-        自分の学習状況を確認することができます。
-    </p>
+    <section class="dashboard-hero">
+        <div>
+            <p class="hero-badge">Learning Dashboard</p>
+            <h1>専門学習ダッシュボード</h1>
+            <p>
+                学習時間・科目・進捗を一つの画面で確認できます。
+            </p>
+        </div>
+    </section>
 
-    <p>
-        現在は学習記録と学習時間の可視化を中心に開発しています。
-        今後は、授業資料やノート画像をアップロードし、OCRと生成AIを用いて
-        専門用語や学習内容を分かりやすく説明する機能を追加する予定です。
-    </p>
-
-    <div class="stats">
-
-        <div class="card">
-            <h3>総学習時間</h3>
-            <p>{{ total_hours }} 時間</p>
+    <section class="dashboard-stats">
+        <div class="dashboard-card">
+            <p>総学習時間</p>
+            <h2>{{ total_hours }}h</h2>
         </div>
 
-        <div class="card">
-            <h3>登録科目数</h3>
-            <p>{{ subject_count }}</p>
+        <div class="dashboard-card">
+            <p>登録科目数</p>
+            <h2>{{ subject_count }}</h2>
         </div>
 
-    </div>
+        <div class="dashboard-card">
+            <p>支援機能</p>
+            <h2>AI</h2>
+        </div>
+    </section>
 
-    <h2>専門学習内容の記録</h2>
+    <section class="dashboard-grid">
 
-    <form method="POST" class="study-form">
-        <label>科目名・学習内容</label>
-        <input type="text" name="subject" placeholder="例：Python基礎、SQL、Web開発" required>
+        <div class="panel">
+            <h2>学習記録を追加</h2>
 
-        <label>学習時間</label>
-        <input type="number" name="hours" placeholder="例：2" required>
+            <form method="POST" class="study-form">
+                <label>科目名・学習内容</label>
+                <input type="text" name="subject" placeholder="例：Python基礎、SQL、Web開発" required>
 
-        <button type="submit">記録を追加する</button>
-    </form>
+                <label>学習時間</label>
+                <input type="number" name="hours" placeholder="例：2" required>
 
-    <hr>
+                <button type="submit">追加する</button>
+            </form>
+        </div>
 
-    <h2>学習記録一覧</h2>
+        <div class="panel">
+            <h2>学習時間グラフ</h2>
+            <div class="chart-container">
+                <canvas id="studyChart"></canvas>
+            </div>
+        </div>
 
-    <ul class="record-list">
-        {% for record in records %}
-            <li>
-                <span>{{ record[1] }} - {{ record[2] }}時間</span>
-                <div class="record-actions">
-                    <a href="/edit/{{ record[0] }}">編集</a>
-                    <a href="/delete/{{ record[0] }}">削除</a>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    </section>
 
-    <h2>学習状況の可視化</h2>
+    <section class="panel">
+        <h2>学習記録一覧</h2>
 
-    <p>
-        登録された学習記録をもとに、科目ごとの学習時間をグラフで確認できます。
-        これにより、どの分野に多く時間を使っているかを把握できます。
-    </p>
+        <ul class="record-list">
+            {% for record in records %}
+                <li>
+                    <span>{{ record[1] }} - {{ record[2] }}時間</span>
+                    <div class="record-actions">
+                        <a href="/edit/{{ record[0] }}">編集</a>
+                        <a href="/delete/{{ record[0] }}">削除</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 
-    <div class="chart-container">
-        <canvas id="studyChart" width="400" height="200"></canvas>
-    </div>
+    <section class="panel">
+        <h2>今後追加予定の機能</h2>
 
-    <h2>今後追加予定の機能</h2>
+        <div class="future-list">
+            <span>画像アップロード</span>
+            <span>OCR</span>
+            <span>生成AI説明</span>
+            <span>質問文作成支援</span>
+            <span>有効性評価</span>
+        </div>
+    </section>
 
-    <ul>
-        <li>授業資料・板書・ノート画像のアップロード機能</li>
-        <li>OCRによる画像内文字の抽出機能</li>
-        <li>生成AIによる専門用語の説明機能</li>
-        <li>分からない内容を教員へ質問するための日本語文作成支援</li>
-        <li>留学生の利用記録やアンケートによる有効性評価</li>
-    </ul>
+</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-    const ctx = document.getElementById('studyChart');
+<script>
+const ctx = document.getElementById('studyChart');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            {% for record in records %}
+                "{{ record[1] }}",
+            {% endfor %}
+        ],
+        datasets: [{
+            label: '学習時間',
+            data: [
                 {% for record in records %}
-                    "{{ record[1] }}",
+                    {{ record[2] }},
                 {% endfor %}
-            ],
-            datasets: [{
-                label: '学習時間',
-                data: [
-                    {% for record in records %}
-                        {{ record[2] }},
-                    {% endfor %}
-                ]
-            }]
-        }
-    });
-    </script>
+            ]
+        }]
+    }
+});
+</script>
 
-</body>
-</html>
+{% endblock %}
